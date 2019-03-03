@@ -16,9 +16,14 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
+from account.serializers import AccountSerializer, StudentsSerializer
+from rest_framework.generics import ListAPIView
+from account.models import Account, Students
 import account.views as views
 
-urlpatterns = [
-    url(r'^$', views.home, name='home'),
+app_name = 'account'
 
+urlpatterns = [
+    url(r'^$', ListAPIView.as_view(queryset=Account.objects.all(), 
+    serializer_class=AccountSerializer), name='account'),
 ]
