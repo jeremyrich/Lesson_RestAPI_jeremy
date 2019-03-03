@@ -18,6 +18,9 @@ from django.contrib import admin
 
 from dashboard import views
 
+app_name = 'dashboard'
+
+
 urlpatterns = [
     url(r'^$', views.home, name='home'),
 
