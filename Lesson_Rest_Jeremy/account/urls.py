@@ -19,15 +19,13 @@ from django.contrib import admin
 from account.serializers import AccountStudentSerializer, StudentsSerializer, AccountSerializer
 from rest_framework.generics import ListAPIView, ListCreateAPIView
 from account.models import Account, Students
-from account.views import AccountList
+from account.views import AccountList, AccountCreateList, StudentsCreateList
 
 app_name = 'account'
 
 urlpatterns = [
     url(r'^(?:(?P<id>[0-9]+)/)?$', AccountList.as_view(), name='account'),
-    url(r'^create$', ListCreateAPIView.as_view(queryset=Account.objects.all(), 
-    serializer_class=AccountSerializer), name='account_create'),
-    url(r'^create_student$', ListCreateAPIView.as_view(queryset=Students.objects.all(), 
-    serializer_class=StudentsSerializer), name='account_create_student'),
+    url(r'^create$', AccountCreateList.as_view(), name='account_create'),
+    url(r'^create_student$', StudentsCreateList.as_view(), name='account_create_student'),
 ]
 
