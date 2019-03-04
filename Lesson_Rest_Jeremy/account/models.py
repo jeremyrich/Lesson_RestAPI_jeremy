@@ -8,7 +8,7 @@ class Account(models.Model):
 
     account_id = models.AutoField(primary_key=True)
     name = models.CharField(max_length=45, null=False)
-    email = models.EmailField(max_length=45, null=False)
+    email = models.EmailField(unique=True, max_length=45, null=False)
     password = models.CharField(max_length=45, null=False)
     address = models.CharField(max_length=200, null=False)
     insert_date = models.DateTimeField(auto_now_add=True)
@@ -23,8 +23,8 @@ class Students(models.Model):
     students_id = models.AutoField(primary_key=True)
     first_name = models.CharField(max_length=45, null=False)
     last_name = models.CharField(max_length=45, null=False)
-    birthday = models.DateField(auto_now=False, auto_now_add=False)
-    email = models.EmailField(max_length=45, null=False)
+    birthday = models.DateField()
+    email = models.EmailField(unique=True, max_length=45, null=False)
     insert_date = models.DateTimeField(auto_now_add=True)
     update_date = models.DateTimeField(auto_now=True)
 

@@ -19,15 +19,13 @@ from django.contrib import admin
 from dashboard.serializers import LessonSerializer, SubscriptionsStatusSerializer, SubscriptionsLessonSerializer, SubscriptionsSerializer
 from rest_framework.generics import ListAPIView, ListCreateAPIView, UpdateAPIView
 from dashboard.models import Status, Subscriptions, Lesson
-from account.models import Account, Students
-import dashboard.views as views
+from dashboard.views import SubscriptionsCreateList, LessonCreateList, LessonList
 
 app_name = 'dashboard'
 
 urlpatterns = [
-    url(r'^create_sub$', ListCreateAPIView.as_view(queryset=Subscriptions.objects.all(), 
-    serializer_class=SubscriptionsSerializer), name='dash_create_sub'),
-    url(r'^update_status$', UpdateAPIView.as_view(queryset=Subscriptions.objects.all(), 
-    serializer_class=SubscriptionsSerializer), name='dash_update_status'),
+    url(r'^create_sub$', SubscriptionsCreateList.as_view(), name='dash_create_sub'),
+    url(r'^create_lesson$', LessonCreateList.as_view(), name='dash_create_lesson'),
+    url(r'^lesson/(?:(?P<id>[0-9]+)/)?$', LessonList.as_view(), name='dash_lesson'),
 ]
 

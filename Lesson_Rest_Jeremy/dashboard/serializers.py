@@ -1,46 +1,38 @@
 from rest_framework import serializers
 from dashboard.models import Status, Subscriptions, Lesson
-from account.models import Account, Students
-from account.serializers import AccountIdSerializer, AccountSerializer
+from account.serializers import StudentsSerializer
 
-
-class LessonSerializer(serializers.HyperlinkedModelSerializer):
+class LessonSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = Lesson
         fields = ('lesson_id', 'date', 'description')
 
-
-class StatusIdSerializer(serializers.HyperlinkedModelSerializer):
-
+class LessonStudentSerializer(serializers.ModelSerializer):
+    students = StudentsSerializer(many=True, read_only=True)
     class Meta:
-        model = Status
-        fields = ('name', )
+        model = Lesson
+        fields = ('lesson_id', 'date', 'description', 'students')
 
-class SubscriptionsSerializer(serializers.HyperlinkedModelSerializer):
-    account = AccountIdSerializer()
-    # status = StatusIdSerializer()
+
+class SubscriptionsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Subscriptions
         fields = ('account',)
 
-class SubscriptionsStatusSerializer(serializers.HyperlinkedModelSerializer):
-    account = AccountIdSerializer()
-    status = StatusIdSerializer()
+
+class SubscriptionsStatusSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Subscriptions
         fields = ('account', 'status')
 
 
-class SubscriptionsLessonSerializer(serializers.HyperlinkedModelSerializer):
-    # account = AccountSerializer(many=True, read_only=True)
-    # status = StatusIdSerializer(many=True, read_only=True)
-    # lesson = LessonSerializer(many=True, read_only=True)
+class SubscriptionsLessonSerializer(serializers.ModelSerializer):
 
     class Meta:
-        model = Subscriptions
+        model = Lesson
         fields = ('subscription_id', 'status', 'subscription_date', 'lesson')
 
 
