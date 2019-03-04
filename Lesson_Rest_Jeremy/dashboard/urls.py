@@ -16,8 +16,8 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from dashboard.serializers import LessonSerializer, SubscriptionsStatusSerializer, SubscriptionsLessonSerializer
-from rest_framework.generics import ListAPIView, ListCreateAPIView
+from dashboard.serializers import LessonSerializer, SubscriptionsStatusSerializer, SubscriptionsLessonSerializer, SubscriptionsSerializer
+from rest_framework.generics import ListAPIView, ListCreateAPIView, UpdateAPIView
 from dashboard.models import Status, Subscriptions, Lesson
 from account.models import Account, Students
 import dashboard.views as views
@@ -25,9 +25,9 @@ import dashboard.views as views
 app_name = 'dashboard'
 
 urlpatterns = [
-    # url(r'^$', ListAPIView.as_view(queryset=Subscriptions.account.all(), 
-    # serializer_class=SubscriptionsLessonSerializer), name='dash_sub'),
-    # url(r'^create$', ListCreateAPIView.as_view(queryset=Subscriptions.objects.all(), 
-    # serializer_class=SubscriptionsStatusSerializer), name='dash_update_sub'),
+    url(r'^create_sub$', ListCreateAPIView.as_view(queryset=Subscriptions.objects.all(), 
+    serializer_class=SubscriptionsSerializer), name='dash_create_sub'),
+    url(r'^update_status$', UpdateAPIView.as_view(queryset=Subscriptions.objects.all(), 
+    serializer_class=SubscriptionsSerializer), name='dash_update_status'),
 ]
 

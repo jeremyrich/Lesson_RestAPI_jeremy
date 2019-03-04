@@ -8,11 +8,18 @@ class StudentsSerializer(serializers.HyperlinkedModelSerializer):
         fields = ('first_name', 'last_name', 'birthday', 'email')
 
 
+class AccountIdSerializer(serializers.HyperlinkedModelSerializer):
+    
+    class Meta:
+        model = Account
+        fields = ('name',)
+
+
 class AccountSerializer(serializers.HyperlinkedModelSerializer):
     
     class Meta:
         model = Account
-        fields = ('name', 'email', 'password', 'address')
+        fields = ('account_id','name', 'email', 'password', 'address')
 
 class AccountStudentSerializer(serializers.HyperlinkedModelSerializer):
     students = StudentsSerializer(many=True, read_only=True)
