@@ -16,12 +16,18 @@ Including another URLconf
 from django.conf.urls import url
 from django.contrib import admin
 
-from dashboard import views
+from dashboard.serializers import LessonSerializer, SubscriptionsStatusSerializer, SubscriptionsLessonSerializer
+from rest_framework.generics import ListAPIView, ListCreateAPIView
+from dashboard.models import Status, Subscriptions, Lesson
+from account.models import Account, Students
+import dashboard.views as views
 
 app_name = 'dashboard'
 
-
 urlpatterns = [
-    url(r'^$', views.home, name='home'),
-
+    # url(r'^$', ListAPIView.as_view(queryset=Subscriptions.account.all(), 
+    # serializer_class=SubscriptionsLessonSerializer), name='dash_sub'),
+    # url(r'^create$', ListCreateAPIView.as_view(queryset=Subscriptions.objects.all(), 
+    # serializer_class=SubscriptionsStatusSerializer), name='dash_update_sub'),
 ]
+
