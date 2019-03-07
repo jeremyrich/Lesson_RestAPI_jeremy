@@ -12,7 +12,7 @@ class statusAdmin(admin.ModelAdmin):
 admin.site.register(Status, statusAdmin)
 
 class subscriptionsAdmin(admin.ModelAdmin):
-    list_display = ('subscription_date','account', 'status')
+    list_display = ('subscription_date','account_id', 'status')
 admin.site.register(Subscriptions, subscriptionsAdmin)
 
 

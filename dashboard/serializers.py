@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from dashboard.models import Status, Subscriptions, Lesson
+from account.models import Account
 from account.serializers import StudentsSerializer
 
 class StatusSerializer(serializers.ModelSerializer):
