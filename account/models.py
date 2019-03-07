@@ -23,7 +23,7 @@ class Students(models.Model):
     students_id = models.AutoField(primary_key=True)
     first_name = models.CharField(max_length=45, null=False)
     last_name = models.CharField(max_length=45, null=False)
-    birthday = models.DateField()
+    birthdate = models.DateField()
     email = models.EmailField(unique=True, max_length=45, null=False)
     insert_date = models.DateTimeField(auto_now_add=True)
     update_date = models.DateTimeField(auto_now=True)
