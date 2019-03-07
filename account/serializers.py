@@ -4,13 +4,13 @@ from .models import Account, Students
 
 
 class StudentsSerializer(serializers.ModelSerializer):
-    birthday = serializers.DateField(format=None)
+    birthdate = serializers.DateField(format=None)
     class Meta:
         model = Students
         fields = ('first_name', 'last_name', 'birthdate', 'email')
 
 class StudentsAccountSerializer(serializers.ModelSerializer):
-    birthday = serializers.DateField(format=None)
+    birthdate = serializers.DateField(format=None)
     class Meta:
         model = Students
         fields = ('first_name', 'last_name', 'birthdate', 'email', 'account')

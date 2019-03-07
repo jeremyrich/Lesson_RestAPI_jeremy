@@ -13,6 +13,6 @@ admin.site.register(Account, accountAdmin)
 
 
 class studentAdmin(admin.ModelAdmin):
-    list_display = ('first_name','last_name', 'birthday', 'email')
+    list_display = ('first_name','last_name', 'birthdate', 'email')
 
 admin.site.register(Students, studentAdmin)

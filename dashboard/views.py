@@ -40,6 +40,7 @@ class updateStatusSubscription(ListCreateAPIView):
     serializer_class= SubscriptionsStatusSerializer
 
     def create(self, request, *args, **kwargs):
+        
         subscriptions = Subscriptions.objects.get(subscription_id=request.data['subscription_id'])
         serializer = self.get_serializer(subscriptions, data=request.data)
         serializer.is_valid(raise_exception=True)

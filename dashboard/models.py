@@ -37,7 +37,7 @@ class Subscriptions(models.Model):
     subscription_date = models.DateTimeField(auto_now_add=True)
     update_date = models.DateTimeField(auto_now=True)
 
-    account = models.ForeignKey(Account, related_name='subscriptions', on_delete=models.CASCADE)
+    account_id = models.ForeignKey(Account, related_name='subscriptions', on_delete=models.CASCADE)
     status = models.ForeignKey(Status, related_name='subscriptions', on_delete=models.SET_NULL, null=True)
 
 
