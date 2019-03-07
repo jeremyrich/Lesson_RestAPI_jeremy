@@ -7,13 +7,13 @@ class StudentsSerializer(serializers.ModelSerializer):
     birthday = serializers.DateField(format=None)
     class Meta:
         model = Students
-        fields = ('first_name', 'last_name', 'birthday', 'email')
+        fields = ('first_name', 'last_name', 'birthdate', 'email')
 
 class StudentsAccountSerializer(serializers.ModelSerializer):
     birthday = serializers.DateField(format=None)
     class Meta:
         model = Students
-        fields = ('first_name', 'last_name', 'birthday', 'email', 'account')
+        fields = ('first_name', 'last_name', 'birthdate', 'email', 'account')
 
 class AccountSerializer(serializers.ModelSerializer):
     
