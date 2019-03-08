@@ -34,7 +34,7 @@ class Status(models.Model):
 class Subscriptions(models.Model): 
 
     subscription_id = models.AutoField(primary_key=True)
-    subscription_date = models.DateTimeField(auto_now_add=True)
+    subscription_date = models.DateField(auto_now_add=True)
     update_date = models.DateTimeField(auto_now=True)
 
     account_id = models.ForeignKey(Account, related_name='subscriptions', on_delete=models.CASCADE)
@@ -50,7 +50,7 @@ class Subscriptions(models.Model):
 class Lesson(models.Model):
 
     lesson_id = models.AutoField(primary_key=True)
-    date = models.DateTimeField()
+    date = models.DateField()
     description = models.TextField(null=False)
     insert_date = models.DateTimeField(auto_now_add=True)
     update_date = models.DateTimeField(auto_now=True)

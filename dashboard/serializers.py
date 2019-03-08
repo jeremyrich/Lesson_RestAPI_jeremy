@@ -36,15 +36,15 @@ class SubscriptionsSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Subscriptions
-        fields = ('account_id',)
 
 
 class SubscriptionsStatusSerializer(serializers.ModelSerializer):
-    # subscription_id = serializers.PrimaryKeyRelatedField(many=False, queryset=Subscriptions.objects.all())
+    subscription_id = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
 
     class Meta:
         model = Subscriptions
         fields = ('subscription_id', 'status')
+        
 
 
 class SubscriptionsLessonSerializer(serializers.ModelSerializer):
