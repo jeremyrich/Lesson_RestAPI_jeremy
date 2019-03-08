@@ -28,20 +28,12 @@ class LessonList(ListAPIView):
     def get_queryset(self):
         id = self.kwargs['id']
 
-        return Lesson.objects.filter(account_id=id) if id else Lesson.objects.all()
+        return Lesson.objects.filter(lesson_id=id) if id else Lesson.objects.all()
 
 class EnrollStudentLesson(CreateAPIView):
-    ''' Generic Create view to enroll a student to a lesson - '''
+    ''' Generic Create view to enroll a student to a lesson '''
     serializer_class = LessonEnrollSerializer
 
-    def create(self, request, *args, **kwargs):               
-        serializer = LessonEnrollSerializer(data=request.data) 
-        if serializer.is_valid():
-            serializer.save()
-            headers = self.get_success_headers(serializer.data)
-            return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-        
 
 class UpdateStatusSubscription(ListCreateAPIView):
     ''' Generic List and create view to update the subscription status and using an overide create methode

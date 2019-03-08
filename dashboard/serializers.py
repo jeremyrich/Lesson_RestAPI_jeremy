@@ -43,11 +43,11 @@ class LessonEnrollSerializer(serializers.ModelSerializer):
 
 class LessonStudentSerializer(serializers.ModelSerializer):
     ''' Serializer for Lesson including students serializer '''
-    students = StudentsSerializer(many=True, read_only=True)
+    student_id = StudentsSerializer(many=True)
 
     class Meta:
         model = Lesson
-        fields = ('lesson_id', 'date', 'description', 'students')
+        fields = ('lesson_id', 'date', 'description', 'student_id')
 
 
 class SubscriptionsStatusSerializer(serializers.ModelSerializer):
