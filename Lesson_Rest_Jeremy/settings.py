@@ -25,7 +25,7 @@ SECRET_KEY = '-%a2-$yuljk4l@n2!&+44g=1*pgehm=#xcaql82n#bxk@31b4o'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['localhost']
 
 
 # Application definition
@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'account',
     'dashboard',
     'rest_framework',
+    'rest_framework_docs',
 ]
 
 MIDDLEWARE = [

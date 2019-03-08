@@ -8,26 +8,25 @@ from account.serializers import StudentsAccountSerializer, AccountStudentSeriali
 
 
 class AccountList(ListAPIView):
+    ''' Generic List view for Accounts with overide query_set in order render full list 
+    or single account if one id is given'''
     serializer_class = AccountStudentSerializer
 
     def get_queryset(self):
-        """
-        This view should return either a list of all account if no id is given or the information of the selected account.
-        """
         id = self.kwargs['id']
-        if id:
 
-            return Account.objects.filter(account_id=id)
-        else:
-            return Account.objects.all()
+        return Account.objects.filter(account_id=id) if id else Account.objects.all()
+            
 
 
 class AccountCreateList(ListCreateAPIView):
+    ''' Generic List and create view for Accounts '''
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
 
 
 
 class StudentsCreateList(ListCreateAPIView):
+    ''' Generic List and create view for Students '''
     queryset = Students.objects.all()
     serializer_class = StudentsAccountSerializer
