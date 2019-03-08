@@ -4,7 +4,8 @@ from __future__ import unicode_literals
 from rest_framework import status
 from rest_framework.response import Response
 from django.shortcuts import render, get_object_or_404
-from rest_framework.generics import ListAPIView, ListCreateAPIView, UpdateAPIView
+from rest_framework.generics import ListAPIView, ListCreateAPIView, UpdateAPIView, CreateAPIView
+from rest_framework.views import APIView
 from dashboard.models import Status, Subscriptions, Lesson
 from dashboard.serializers import LessonSerializer, LessonEnrollSerializer, LessonStudentSerializer, \
     SubscriptionsLessonSerializer, SubscriptionsSerializer, SubscriptionsStatusSerializer
@@ -29,10 +30,17 @@ class LessonList(ListAPIView):
 
         return Lesson.objects.filter(account_id=id) if id else Lesson.objects.all()
 
-class EnrollStudentLesson(ListCreateAPIView):
-    ''' Generic List and create view to enroll a student to a lesson'''
-    queryset = Lesson.objects.all()
+class EnrollStudentLesson(CreateAPIView):
+    ''' Generic Create view to enroll a student to a lesson - '''
     serializer_class = LessonEnrollSerializer
+
+    def create(self, request, *args, **kwargs):               
+        serializer = LessonEnrollSerializer(data=request.data) 
+        if serializer.is_valid():
+            serializer.save()
+            headers = self.get_success_headers(serializer.data)
+            return Response(serializer.data, status=status.HTTP_201_CREATED, headers=headers)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
         
 
 class UpdateStatusSubscription(ListCreateAPIView):

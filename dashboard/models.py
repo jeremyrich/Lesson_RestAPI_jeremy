@@ -56,7 +56,7 @@ class Lesson(models.Model):
     update_date = models.DateTimeField(auto_now=True)
 
     subscription_id = models.ForeignKey(Subscriptions, related_name='lessons', on_delete=models.SET_NULL, null=True)
-    students = models.ManyToManyField(Students)
+    student_id = models.ManyToManyField(Students)
 
     def __str__(self):
         return self.description
