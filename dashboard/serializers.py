@@ -59,7 +59,7 @@ class SubscriptionsLessonSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Subscriptions
-        fields = ('subscription_id', 'status', 'lessons', 'subscription_date')
+        fields = ('subscription_id', 'status', 'subscription_date', 'lessons')
 
 
 
