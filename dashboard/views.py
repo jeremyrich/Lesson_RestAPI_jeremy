@@ -4,7 +4,8 @@ from __future__ import unicode_literals
 from rest_framework import status
 from rest_framework.response import Response
 from django.shortcuts import render, get_object_or_404
-from rest_framework.generics import ListAPIView, ListCreateAPIView, UpdateAPIView
+from rest_framework.generics import ListAPIView, ListCreateAPIView, UpdateAPIView, CreateAPIView
+from rest_framework.views import APIView
 from dashboard.models import Status, Subscriptions, Lesson
 from dashboard.serializers import LessonSerializer, LessonEnrollSerializer, LessonStudentSerializer, \
     SubscriptionsLessonSerializer, SubscriptionsSerializer, SubscriptionsStatusSerializer
@@ -27,13 +28,12 @@ class LessonList(ListAPIView):
     def get_queryset(self):
         id = self.kwargs['id']
 
-        return Lesson.objects.filter(account_id=id) if id else Lesson.objects.all()
+        return Lesson.objects.filter(lesson_id=id) if id else Lesson.objects.all()
 
-class EnrollStudentLesson(ListCreateAPIView):
-    ''' Generic List and create view to enroll a student to a lesson'''
-    queryset = Lesson.objects.all()
+class EnrollStudentLesson(CreateAPIView):
+    ''' Generic Create view to enroll a student to a lesson '''
     serializer_class = LessonEnrollSerializer
-        
+
 
 class UpdateStatusSubscription(ListCreateAPIView):
     ''' Generic List and create view to update the subscription status and using an overide create methode

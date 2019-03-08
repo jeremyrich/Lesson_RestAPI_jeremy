@@ -1,6 +1,6 @@
 from rest_framework import serializers
 from dashboard.models import Status, Subscriptions, Lesson
-from account.models import Account
+from account.models import Account, Students
 from account.serializers import StudentsSerializer
 
 
@@ -27,20 +27,27 @@ class SubscriptionsSerializer(serializers.ModelSerializer):
 # Nested serializers and / or primarykeyrelatedfields
 class LessonEnrollSerializer(serializers.ModelSerializer):
     ''' serializer to enroll a student to a lesson using primary keys'''
+
     lesson_id = serializers.PrimaryKeyRelatedField(many=False, queryset=Lesson.objects.all())
+    student_id = serializers.PrimaryKeyRelatedField(many=False, queryset=Students.objects.all())
 
     class Meta:
         model = Lesson
-        fields = ('students', 'lesson_id')
-    
+        fields = ('lesson_id', 'student_id')   
+
+    def save(self):
+        lesson = self.validated_data['lesson_id']
+        new_student = self.validated_data['student_id']
+        lesson.student_id.add(new_student)                           
+        lesson.save()
 
 class LessonStudentSerializer(serializers.ModelSerializer):
     ''' Serializer for Lesson including students serializer '''
-    students = StudentsSerializer(many=True, read_only=True)
+    student_id = StudentsSerializer(many=True)
 
     class Meta:
         model = Lesson
-        fields = ('lesson_id', 'date', 'description', 'students')
+        fields = ('lesson_id', 'date', 'description', 'student_id')
 
 
 class SubscriptionsStatusSerializer(serializers.ModelSerializer):
