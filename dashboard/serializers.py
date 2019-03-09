@@ -9,7 +9,7 @@ class StatusSerializer(serializers.ModelSerializer):
     ''' Serialiser for status model, used as nested in suscriptions serializers'''
     class Meta:
         model = Status
-        fields = ('status_id', 'name', 'insert_date')
+        fields = ('status_id', 'name')
 
 class LessonSerializer(serializers.ModelSerializer):
     ''' Serialiser for Lesson model, used in LessonList view '''
