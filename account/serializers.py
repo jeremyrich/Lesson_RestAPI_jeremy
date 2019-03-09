@@ -22,7 +22,7 @@ class StudentsAccountSerializer(serializers.ModelSerializer):
     birthdate = serializers.DateField(format=None)
     class Meta:
         model = Students
-        fields = ('first_name', 'last_name', 'birthdate', 'email', 'account')
+        fields = ('first_name', 'last_name', 'birthdate', 'email', 'account_id')
 
 
 # Nested serializers 
