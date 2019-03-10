@@ -6,16 +6,22 @@ from django.contrib import admin
 from .models import Status, Subscriptions, Lesson
 
 
-
 class statusAdmin(admin.ModelAdmin):
-    list_display = ('name',)
+    list_display = ("name",)
+
+
 admin.site.register(Status, statusAdmin)
 
+
 class subscriptionsAdmin(admin.ModelAdmin):
-    list_display = ('subscription_date','account_id', 'status')
+    list_display = ("subscription_date", "account_id", "status")
+
+
 admin.site.register(Subscriptions, subscriptionsAdmin)
 
 
 class lessonAdmin(admin.ModelAdmin):
-    list_display = ('date', 'description')
+    list_display = ("date", "description")
+
+
 admin.site.register(Lesson, lessonAdmin)

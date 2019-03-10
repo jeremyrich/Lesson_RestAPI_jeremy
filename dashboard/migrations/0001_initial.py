@@ -9,20 +9,28 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Status',
+            name="Status",
             fields=[
-                ('status_id', models.AutoField(primary_key=True, serialize=False)),
-                ('name', models.CharField(choices=[('Active', 'Active'), ('Paused', 'Paused'), ('Cancelled', 'Cancelled')], default='ACTIVE', max_length=255)),
-                ('insert_date', models.DateTimeField(auto_now_add=True)),
-                ('update_date', models.DateTimeField(auto_now=True)),
+                ("status_id", models.AutoField(primary_key=True, serialize=False)),
+                (
+                    "name",
+                    models.CharField(
+                        choices=[
+                            ("Active", "Active"),
+                            ("Paused", "Paused"),
+                            ("Cancelled", "Cancelled"),
+                        ],
+                        default="ACTIVE",
+                        max_length=255,
+                    ),
+                ),
+                ("insert_date", models.DateTimeField(auto_now_add=True)),
+                ("update_date", models.DateTimeField(auto_now=True)),
             ],
-            options={
-                'verbose_name_plural': 'Status',
-            },
-        ),
+            options={"verbose_name_plural": "Status"},
+        )
     ]
