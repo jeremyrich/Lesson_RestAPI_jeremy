@@ -7,12 +7,14 @@ from .models import Account, Students
 
 
 class accountAdmin(admin.ModelAdmin):
-    list_display = ('name','email', 'address')
+    list_display = ("name", "email", "address")
+
 
 admin.site.register(Account, accountAdmin)
 
 
 class studentAdmin(admin.ModelAdmin):
-    list_display = ('first_name','last_name', 'birthdate', 'email')
+    list_display = ("first_name", "last_name", "birthdate", "email")
+
 
 admin.site.register(Students, studentAdmin)

@@ -9,20 +9,19 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Account',
+            name="Account",
             fields=[
-                ('account_id', models.AutoField(primary_key=True, serialize=False)),
-                ('name', models.CharField(max_length=45)),
-                ('email', models.EmailField(max_length=45, unique=True)),
-                ('password', models.CharField(max_length=255)),
-                ('address', models.CharField(max_length=200)),
-                ('insert_date', models.DateTimeField(auto_now_add=True)),
-                ('update_date', models.DateTimeField(auto_now=True)),
+                ("account_id", models.AutoField(primary_key=True, serialize=False)),
+                ("name", models.CharField(max_length=45)),
+                ("email", models.EmailField(max_length=45, unique=True)),
+                ("password", models.CharField(max_length=255)),
+                ("address", models.CharField(max_length=200)),
+                ("insert_date", models.DateTimeField(auto_now_add=True)),
+                ("update_date", models.DateTimeField(auto_now=True)),
             ],
-        ),
+        )
     ]

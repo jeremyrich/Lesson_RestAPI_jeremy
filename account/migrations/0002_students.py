@@ -8,25 +8,28 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('account', '0001_initial'),
-    ]
+    dependencies = [("account", "0001_initial")]
 
     operations = [
         migrations.CreateModel(
-            name='Students',
+            name="Students",
             fields=[
-                ('students_id', models.AutoField(primary_key=True, serialize=False)),
-                ('first_name', models.CharField(max_length=45)),
-                ('last_name', models.CharField(max_length=45)),
-                ('birthdate', models.DateField()),
-                ('email', models.EmailField(max_length=45, unique=True)),
-                ('insert_date', models.DateTimeField(auto_now_add=True)),
-                ('update_date', models.DateTimeField(auto_now=True)),
-                ('account', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='students', to='account.Account')),
+                ("students_id", models.AutoField(primary_key=True, serialize=False)),
+                ("first_name", models.CharField(max_length=45)),
+                ("last_name", models.CharField(max_length=45)),
+                ("birthdate", models.DateField()),
+                ("email", models.EmailField(max_length=45, unique=True)),
+                ("insert_date", models.DateTimeField(auto_now_add=True)),
+                ("update_date", models.DateTimeField(auto_now=True)),
+                (
+                    "account",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="students",
+                        to="account.Account",
+                    ),
+                ),
             ],
-            options={
-                'verbose_name_plural': 'Students',
-            },
-        ),
+            options={"verbose_name_plural": "Students"},
+        )
     ]

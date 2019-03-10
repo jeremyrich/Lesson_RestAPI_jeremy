@@ -8,39 +8,57 @@ import django.db.models.deletion
 
 class Migration(migrations.Migration):
 
-    dependencies = [
-        ('account', '0002_students'),
-        ('dashboard', '0001_initial'),
-    ]
+    dependencies = [("account", "0002_students"), ("dashboard", "0001_initial")]
 
     operations = [
         migrations.CreateModel(
-            name='Lesson',
+            name="Lesson",
             fields=[
-                ('lesson_id', models.AutoField(primary_key=True, serialize=False)),
-                ('date', models.DateTimeField()),
-                ('description', models.TextField()),
-                ('insert_date', models.DateTimeField(auto_now_add=True)),
-                ('update_date', models.DateTimeField(auto_now=True)),
-                ('students', models.ManyToManyField(to='account.Students')),
+                ("lesson_id", models.AutoField(primary_key=True, serialize=False)),
+                ("date", models.DateTimeField()),
+                ("description", models.TextField()),
+                ("insert_date", models.DateTimeField(auto_now_add=True)),
+                ("update_date", models.DateTimeField(auto_now=True)),
+                ("students", models.ManyToManyField(to="account.Students")),
             ],
         ),
         migrations.CreateModel(
-            name='Subscriptions',
+            name="Subscriptions",
             fields=[
-                ('subscription_id', models.AutoField(primary_key=True, serialize=False)),
-                ('subscription_date', models.DateTimeField(auto_now_add=True)),
-                ('update_date', models.DateTimeField(auto_now=True)),
-                ('account_id', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='subscriptions', to='account.Account')),
-                ('status', models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='subscriptions', to='dashboard.Status')),
+                (
+                    "subscription_id",
+                    models.AutoField(primary_key=True, serialize=False),
+                ),
+                ("subscription_date", models.DateTimeField(auto_now_add=True)),
+                ("update_date", models.DateTimeField(auto_now=True)),
+                (
+                    "account_id",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.CASCADE,
+                        related_name="subscriptions",
+                        to="account.Account",
+                    ),
+                ),
+                (
+                    "status",
+                    models.ForeignKey(
+                        null=True,
+                        on_delete=django.db.models.deletion.SET_NULL,
+                        related_name="subscriptions",
+                        to="dashboard.Status",
+                    ),
+                ),
             ],
-            options={
-                'verbose_name_plural': 'Subscriptions',
-            },
+            options={"verbose_name_plural": "Subscriptions"},
         ),
         migrations.AddField(
-            model_name='lesson',
-            name='subscription_id',
-            field=models.ForeignKey(null=True, on_delete=django.db.models.deletion.SET_NULL, related_name='lessons', to='dashboard.Subscriptions'),
+            model_name="lesson",
+            name="subscription_id",
+            field=models.ForeignKey(
+                null=True,
+                on_delete=django.db.models.deletion.SET_NULL,
+                related_name="lessons",
+                to="dashboard.Subscriptions",
+            ),
         ),
     ]

@@ -12,10 +12,14 @@ dirname = os.path.dirname
 
 distutils_path = os.path.join(os.path.dirname(opcode.__file__), "distutils")
 if os.path.normpath(distutils_path) == os.path.dirname(os.path.normpath(__file__)):
-    warnings.warn("The virtualenv distutils package at %s appears to be in the same location as the system distutils?")
+    warnings.warn(
+        "The virtualenv distutils package at %s appears to be in the same location as the system distutils?"
+    )
 else:
     __path__.insert(0, distutils_path)  # noqa: F821
-    real_distutils = imp.load_module("_virtualenv_distutils", None, distutils_path, ("", "", imp.PKG_DIRECTORY))
+    real_distutils = imp.load_module(
+        "_virtualenv_distutils", None, distutils_path, ("", "", imp.PKG_DIRECTORY)
+    )
     # Copy the relevant attributes
     try:
         __revision__ = real_distutils.__revision__
