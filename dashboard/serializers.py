@@ -22,6 +22,15 @@ class LessonSerializer(serializers.ModelSerializer):
         fields = ("lesson_id", "date", "description")
 
 
+class LockLessonSerializer(serializers.ModelSerializer):
+    """ Serialiser for Locked Lesson model, used in LockLesson view """
+
+    class Meta:
+        model = Lesson
+        fields = ("lesson_id", "description", "lock_status")
+        read_only_fields = ("description",)
+
+
 class SubscriptionsSerializer(serializers.ModelSerializer):
     """ Serializer for subscriptions model, used in SubscriptionsCreateList"""
 

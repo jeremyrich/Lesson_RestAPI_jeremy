@@ -16,6 +16,7 @@ from dashboard.models import Lesson, Status, Subscriptions
 from dashboard.serializers import (
     LessonEnrollSerializer,
     LessonSerializer,
+    LockLessonSerializer,
     LessonStudentSerializer,
     SubscriptionsLessonSerializer,
     SubscriptionsSerializer,
@@ -53,6 +54,17 @@ class EnrollStudentLesson(CreateAPIView):
     """ Generic Create view to enroll a student to a lesson """
 
     serializer_class = LessonEnrollSerializer
+
+
+class LockLesson(UpdateAPIView, ListAPIView):
+    """ Generic Update view to lock session using pk of one lesson + generic List view to list all lessons """
+
+    serializer_class = LockLessonSerializer
+
+    def get_queryset(self):
+        pk = self.kwargs["pk"]
+
+        return Lesson.objects.filter(lesson_id=pk) if pk else Lesson.objects.all()
 
 
 class UpdateStatusSubscription(ListCreateAPIView):

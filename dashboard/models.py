@@ -57,6 +57,7 @@ class Lesson(models.Model):
     description = models.TextField(null=False)
     insert_date = models.DateTimeField(auto_now_add=True)
     update_date = models.DateTimeField(auto_now=True)
+    lock_status = models.BooleanField(default=False)
 
     subscription_id = models.ForeignKey(
         Subscriptions, related_name="lessons", on_delete=models.SET_NULL, null=True

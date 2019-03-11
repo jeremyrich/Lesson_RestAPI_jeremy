@@ -83,5 +83,3 @@ class SubscriptionsTest(TestCase):
             ).status,
             self.status2,
         )
-
-
