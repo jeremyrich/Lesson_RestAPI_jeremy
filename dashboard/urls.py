@@ -1,12 +1,16 @@
 from django.conf.urls import url
 from django.contrib import admin
 
+from rest_framework.generics import RetrieveAPIView
+
 from dashboard.models import Lesson, Status, Subscriptions
+from account.models import Account
 from dashboard.serializers import (
     LessonEnrollSerializer,
     LessonSerializer,
     SubscriptionsLessonSerializer,
     SubscriptionsSerializer,
+    AccountSubscriptionsListSerializer,
 )
 from dashboard.views import (
     StatusList,
@@ -17,6 +21,7 @@ from dashboard.views import (
     SubscriptionsCreateList,
     SubscriptionsList,
     UpdateStatusSubscription,
+    SubscriptionsAccountList,
 )
 
 app_name = "dashboard"
@@ -24,6 +29,14 @@ app_name = "dashboard"
 urlpatterns = [
     url(r"^create_sub$", SubscriptionsCreateList.as_view(), name="dash_create_sub"),
     url(r"^all_status$", StatusList.as_view(), name="account_status"),
+    url(
+        r"^subscriptions/(?:(?P<id>\d+)/)?$",
+        SubscriptionsAccountList.as_view(
+            queryset=Account.objects.all(),
+            serializer_class=AccountSubscriptionsListSerializer,
+        ),
+        name="dash_sub_account",
+    ),
     url(
         r"^update_status", UpdateStatusSubscription.as_view(), name="dash_update_status"
     ),

@@ -12,7 +12,6 @@ class AccountSerializer(serializers.ModelSerializer):
         fields = ("account_id", "name", "email", "password", "address")
 
 
-
 class StudentsAccountSerializer(serializers.ModelSerializer):
     """ Serializer for Student using account as foreign key field """
 
@@ -21,9 +20,7 @@ class StudentsAccountSerializer(serializers.ModelSerializer):
     class Meta:
         model = Students
         fields = ("first_name", "last_name", "birthdate", "email", "account_id")
-        extra_kwargs = {
-            'account_id': {'write_only': True},
-            }
+        extra_kwargs = {"account_id": {"write_only": True}}
 
 
 # Nested serializers
@@ -35,5 +32,3 @@ class AccountStudentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Account
         fields = ("name", "email", "address", "students")
-
-

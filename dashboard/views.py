@@ -8,11 +8,13 @@ from rest_framework.generics import (
     ListAPIView,
     ListCreateAPIView,
     UpdateAPIView,
+    RetrieveAPIView,
 )
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from dashboard.models import Lesson, Status, Subscriptions
+from account.models import Account
 from dashboard.serializers import (
     StatusSerializer,
     LessonEnrollSerializer,
@@ -22,6 +24,7 @@ from dashboard.serializers import (
     SubscriptionsLessonSerializer,
     SubscriptionsSerializer,
     SubscriptionsStatusSerializer,
+    AccountSubscriptionsListSerializer,
 )
 
 
@@ -118,11 +121,22 @@ class SubscriptionsList(ListAPIView):
         )
 
 
+class SubscriptionsAccountList(ListAPIView):
+    """ Generic List view to render all subscriptions by account"""
+
+    serializer_class = AccountSubscriptionsListSerializer
+
+    def get_queryset(self):
+        id = self.kwargs["id"]
+
+        return Account.objects.filter(account_id=id) if id else Account.objects.all()
+
+
 class StatusList(ListAPIView):
     """ Generic List view for Status """
+
     serializer_class = StatusSerializer
 
     def get_queryset(self):
 
         return Status.objects.all()
-    

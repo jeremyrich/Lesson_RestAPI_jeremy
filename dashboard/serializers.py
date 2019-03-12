@@ -81,6 +81,26 @@ class SubscriptionsStatusSerializer(serializers.ModelSerializer):
         fields = ("subscription_id", "status")
 
 
+class SubscriptionsStatusNestedSerializer(serializers.ModelSerializer):
+    """ Subscriptions serializer including subscription_id in read_only and status as foreign key"""
+
+    subscription_id = serializers.PrimaryKeyRelatedField(many=False, read_only=True)
+    status = StatusSerializer()
+
+    class Meta:
+        model = Subscriptions
+        fields = ("subscription_id", "status")
+
+
+class AccountSubscriptionsListSerializer(serializers.ModelSerializer):
+
+    subscriptions = SubscriptionsStatusNestedSerializer(many=True)
+
+    class Meta:
+        model = Account
+        fields = ["name", "email", "subscriptions"]
+
+
 class SubscriptionsLessonSerializer(serializers.ModelSerializer):
     """  Subscriptions serializer including Lessons and status as nested fields """
 
