@@ -14,6 +14,7 @@ from rest_framework.views import APIView
 
 from dashboard.models import Lesson, Status, Subscriptions
 from dashboard.serializers import (
+    StatusSerializer,
     LessonEnrollSerializer,
     LessonSerializer,
     LockLessonSerializer,
@@ -115,3 +116,13 @@ class SubscriptionsList(ListAPIView):
             if id
             else Subscriptions.objects.all()
         )
+
+
+class StatusList(ListAPIView):
+    """ Generic List view for Status """
+    serializer_class = StatusSerializer
+
+    def get_queryset(self):
+
+        return Status.objects.all()
+    

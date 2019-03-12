@@ -1,8 +1,8 @@
 from rest_framework import serializers
 
 from account.models import Account, Students
-from account.serializers import StudentsSerializer
 from dashboard.models import Lesson, Status, Subscriptions
+from account.serializers import StudentsAccountSerializer
 
 
 # Primary serializers
@@ -27,8 +27,8 @@ class LockLessonSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Lesson
-        fields = ("lesson_id", "description", "lock_status")
-        read_only_fields = ("description",)
+        fields = ("lesson_id", "date", "description", "lock_status")
+        read_only_fields = ("description", "date")
 
 
 class SubscriptionsSerializer(serializers.ModelSerializer):
@@ -64,7 +64,7 @@ class LessonEnrollSerializer(serializers.ModelSerializer):
 class LessonStudentSerializer(serializers.ModelSerializer):
     """ Serializer for Lesson including students serializer """
 
-    student_id = StudentsSerializer(many=True)
+    student_id = StudentsAccountSerializer(many=True)
 
     class Meta:
         model = Lesson
