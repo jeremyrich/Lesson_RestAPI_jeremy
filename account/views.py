@@ -40,6 +40,7 @@ class StudentsCreateList(ListCreateAPIView):
 
 
 class StudentsDeleteList(DestroyAPIView, ListAPIView):
+    """ Generic delete view for Students """
     serializer_class = StudentsAccountSerializer
 
     def get_queryset(self):
