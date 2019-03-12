@@ -11,6 +11,7 @@ from dashboard.serializers import (
 from dashboard.views import (
     EnrollStudentLesson,
     LessonCreateList,
+    LockLesson,
     LessonList,
     SubscriptionsCreateList,
     SubscriptionsList,
@@ -31,5 +32,8 @@ urlpatterns = [
         r"^subscription/(?:(?P<id>[0-9]+)/)?$",
         SubscriptionsList.as_view(),
         name="dash_sub",
+    ),
+    url(
+        r"^lock_lesson/(?:(?P<pk>[0-9]+)/)?$", LockLesson.as_view(), name="lock_lesson"
     ),
 ]

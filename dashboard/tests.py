@@ -84,4 +84,4 @@ class SubscriptionsTest(TestCase):
             self.status2,
         )
 
-
+    
