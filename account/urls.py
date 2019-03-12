@@ -2,10 +2,7 @@ from django.conf.urls import url
 from django.contrib import admin
 
 from account.models import Account, Students
-from account.serializers import (
-    AccountSerializer,
-    AccountStudentSerializer,
-)
+from account.serializers import AccountSerializer, AccountStudentSerializer
 from account.views import (
     AccountCreateList,
     AccountList,
