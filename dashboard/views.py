@@ -55,6 +55,19 @@ class EnrollStudentLesson(CreateAPIView):
 
     serializer_class = LessonEnrollSerializer
 
+    def create(self, request, *args, **kwargs):
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        status = Lesson.objects.values_list("lock_status", flat=True).get(
+            lesson_id=serializer.data["lesson_id"]
+        )
+        if status is False:
+            serializer.save()
+            headers = self.get_success_headers(serializer.data)
+            return Response(serializer.data, headers=headers)
+        else:
+            return Response("Lesson is locked")
+
 
 class LockLesson(UpdateAPIView, ListAPIView):
     """ Generic Update view to lock session using pk of one lesson + generic List view to list all lessons """
