@@ -2,7 +2,7 @@
 from __future__ import unicode_literals
 
 from django.shortcuts import get_object_or_404, render
-from rest_framework.generics import ListAPIView, ListCreateAPIView
+from rest_framework.generics import ListAPIView, ListCreateAPIView, DestroyAPIView
 
 from account.models import Account, Students
 from account.serializers import (
@@ -37,3 +37,12 @@ class StudentsCreateList(ListCreateAPIView):
 
     queryset = Students.objects.all()
     serializer_class = StudentsAccountSerializer
+
+
+class StudentsDeleteList(DestroyAPIView, ListAPIView):
+    serializer_class = StudentsAccountSerializer
+
+    def get_queryset(self):
+        pk = self.kwargs["pk"]
+
+        return Students.objects.filter(students_id=pk) if pk else Students.objects.all()
