@@ -3,16 +3,18 @@ from __future__ import unicode_literals
 
 from django.test import Client, TestCase
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 from .models import Account, Students
 from .serializers import AccountSerializer, StudentsAccountSerializer
-
 
 class AccountTest(TestCase):
     """ Test module for GET and POST on /account/create """
 
     def setUp(self):
         self.client = Client()
+        self.user = User.objects.create_user(username='test', first_name='test', last_name='test', email='test@test.com', password="Test123456")
+        self.client.login(username='test', password='Test123456')
         Account.objects.create(
             name="Company",
             email="Company@gmail.com",
@@ -55,6 +57,8 @@ class StudentTest(TestCase):
 
     def setUp(self):
         self.client = Client()
+        self.user = User.objects.create_user(username='test', first_name='test', last_name='test', email='test@test.com', password="Test123456")
+        self.client.login(username='test', password='Test123456')
         self.account = Account.objects.create(
             name="Company",
             email="Company@gmail.com",
