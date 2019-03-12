@@ -5,7 +5,6 @@ from account.models import Account, Students
 from account.serializers import (
     AccountSerializer,
     AccountStudentSerializer,
-    StudentsSerializer,
 )
 from account.views import (
     AccountCreateList,

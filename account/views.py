@@ -5,11 +5,14 @@ from django.shortcuts import get_object_or_404, render
 from rest_framework.generics import ListAPIView, ListCreateAPIView, DestroyAPIView
 
 from account.models import Account, Students
+from dashboard.models import Status
 from account.serializers import (
     AccountSerializer,
     AccountStudentSerializer,
     StudentsAccountSerializer,
-    StudentsSerializer,
+)
+from dashboard.serializers import (
+    StatusSerializer,
 )
 
 

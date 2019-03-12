@@ -12,15 +12,6 @@ class AccountSerializer(serializers.ModelSerializer):
         fields = ("account_id", "name", "email", "password", "address")
 
 
-class StudentsSerializer(serializers.ModelSerializer):
-    """ Serializer for student model, remove birthdate formatting"""
-
-    birthdate = serializers.DateField(format=None)
-
-    class Meta:
-        model = Students
-        fields = ("first_name", "last_name", "birthdate", "email")
-
 
 class StudentsAccountSerializer(serializers.ModelSerializer):
     """ Serializer for Student using account as foreign key field """
@@ -30,14 +21,19 @@ class StudentsAccountSerializer(serializers.ModelSerializer):
     class Meta:
         model = Students
         fields = ("first_name", "last_name", "birthdate", "email", "account_id")
+        extra_kwargs = {
+            'account_id': {'write_only': True},
+            }
 
 
 # Nested serializers
 class AccountStudentSerializer(serializers.ModelSerializer):
     """ Serializer for account using students as nested fields """
 
-    students = StudentsSerializer(many=True, read_only=True)
+    students = StudentsAccountSerializer(many=True, read_only=True)
 
     class Meta:
         model = Account
         fields = ("name", "email", "address", "students")
+
+
