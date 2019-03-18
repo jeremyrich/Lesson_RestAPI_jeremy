@@ -137,6 +137,3 @@ class StudentTest(TestCase):
             ).content,
             "[]",
         )  # Second verification
-
-    
-

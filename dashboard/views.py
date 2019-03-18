@@ -70,7 +70,7 @@ class EnrollStudentLesson(CreateAPIView):
             headers = self.get_success_headers(serializer.data)
             return Response(serializer.data, headers=headers)
         else:
-            return Response("Lesson is locked", status = status.HTTP_423_LOCKED)
+            return Response("Lesson is locked", status=status.HTTP_423_LOCKED)
 
 
 class LockLesson(UpdateAPIView, ListAPIView):

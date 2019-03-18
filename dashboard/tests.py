@@ -76,7 +76,7 @@ class SubscriptionsTest(TestCase):
         )
         subscription = Subscriptions.objects.get(account_id=self.account2)
         serializer = SubscriptionsSerializer(subscription, many=False)
-        self.assertEqual(response.status_code, 201)     # relation created
+        self.assertEqual(response.status_code, 201)  # relation created
         self.assertEqual(response.data, serializer.data)
         self.assertEqual(
             Subscriptions.objects.get(
@@ -104,6 +104,7 @@ class SubscriptionsTest(TestCase):
             self.status2,
         )
 
+
 class StatusTest(TestCase):
     """ Test module for GET on /dashboard/all_status """
 
@@ -125,8 +126,7 @@ class StatusTest(TestCase):
         serializer = StatusSerializer(status, many=True)
         self.assertEqual(response.data, serializer.data)
         self.assertEqual(
-            Status.objects.get(name=self.status),
-            self.status,  # status found
+            Status.objects.get(name=self.status), self.status  # status found
         )
         self.assertEqual(response.status_code, 200)  # url permissions check
 
@@ -165,14 +165,16 @@ class LessonTest(TestCase):
         )
         self.client.login(username="test", password="Test123456")
         self.lesson = Lesson.objects.create(
-            date="2019-01-03",
-            description="Django crash course"
+            date="2019-01-03", description="Django crash course"
         )
-        self.data = {"date":"2019-02-04", "description":"soft skills"}
-        self.lock = {"lock_status" : True}
-        self.enrol = {"lesson_id" : self.lesson.lesson_id, "student_id": self.student.students_id}
-        self.enrol_onlock = {"lesson_id" : 1, "student_id": self.student2.students_id}
-    
+        self.data = {"date": "2019-02-04", "description": "soft skills"}
+        self.lock = {"lock_status": True}
+        self.enrol = {
+            "lesson_id": self.lesson.lesson_id,
+            "student_id": self.student.students_id,
+        }
+        self.enrol_onlock = {"lesson_id": 1, "student_id": self.student2.students_id}
+
     def test_get_lesson(self):
         response = self.client.get(reverse("dashboard:dash_lesson"), format="json")
         lesson = Lesson.objects.all()
@@ -190,27 +192,36 @@ class LessonTest(TestCase):
         )
         lesson = Lesson.objects.get(lesson_id=4)
         serializer = LessonStudentSerializer(lesson, many=False)
-        self.assertEqual(response.status_code, 201)     # relation created
+        self.assertEqual(response.status_code, 201)  # relation created
         self.assertEqual(
-            lesson.description,  # object in DB
-            response.data["description"],
+            lesson.description, response.data["description"]  # object in DB
         )
-    
-        ''' check lock_lesson PUT method '''
+
+        """ check lock_lesson PUT method """
         self.assertFalse(lesson.lock_status)  # default lock_status = False
         response2 = self.client.put(
-            reverse("dashboard:lock_lesson", kwargs={"pk": 3}), data=self.lock, format="json"
-            )
+            reverse("dashboard:lock_lesson", kwargs={"pk": 3}),
+            data=self.lock,
+            format="json",
+        )
         lesson = Lesson.objects.get(pk=3)
         self.assertTrue(lesson.lock_status)  # lock_status update = True
 
     def test_enroll_student_lesson(self):
-        response = self.client.post(reverse("dashboard:dash_enrol_student"), data=self.enrol, format="json")
+        response = self.client.post(
+            reverse("dashboard:dash_enrol_student"), data=self.enrol, format="json"
+        )
         self.assertEqual(response.status_code, 200)
 
-        ''' lock lesson and check enroll again '''
+        """ lock lesson and check enroll again """
         lock = self.client.put(
-            reverse("dashboard:lock_lesson", kwargs={"pk": 1}), data=self.lock, format="json"
-            )
-        response2 = self.client.post(reverse("dashboard:dash_enrol_student"), data=self.enrol_onlock, format="json")
+            reverse("dashboard:lock_lesson", kwargs={"pk": 1}),
+            data=self.lock,
+            format="json",
+        )
+        response2 = self.client.post(
+            reverse("dashboard:dash_enrol_student"),
+            data=self.enrol_onlock,
+            format="json",
+        )
         self.assertEqual(response2.status_code, 423)  # locked status code
