@@ -28,7 +28,7 @@ app_name = "dashboard"
 
 urlpatterns = [
     url(r"^create_sub$", SubscriptionsCreateList.as_view(), name="dash_create_sub"),
-    url(r"^all_status$", StatusList.as_view(), name="account_status"),
+    url(r"^all_status$", StatusList.as_view(), name="dash_status"),
     url(
         r"^subscriptions/(?:(?P<id>\d+)/)?$",
         SubscriptionsAccountList.as_view(
