@@ -62,15 +62,15 @@ class EnrollStudentLesson(CreateAPIView):
     def create(self, request, *args, **kwargs):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
-        status = Lesson.objects.values_list("lock_status", flat=True).get(
+        lock_status = Lesson.objects.values_list("lock_status", flat=True).get(
             lesson_id=serializer.data["lesson_id"]
         )
-        if status is False:
+        if lock_status is False:
             serializer.save()
             headers = self.get_success_headers(serializer.data)
             return Response(serializer.data, headers=headers)
         else:
-            return Response("Lesson is locked")
+            return Response("Lesson is locked", status = status.HTTP_423_LOCKED)
 
 
 class LockLesson(UpdateAPIView, ListAPIView):
