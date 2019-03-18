@@ -94,6 +94,7 @@ class SubscriptionsStatusNestedSerializer(serializers.ModelSerializer):
 
 class AccountSubscriptionsListSerializer(serializers.ModelSerializer):
     """  Account serializer including SubscriptionsStatusNested as nested field """
+
     subscriptions = SubscriptionsStatusNestedSerializer(many=True)
 
     class Meta:
