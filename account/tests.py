@@ -1,14 +1,13 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from django.contrib.auth.models import User
 from django.test import Client, TestCase
 from django.urls import reverse
-from django.contrib.auth.models import User
+from rest_framework.test import APIClient, APIRequestFactory
 
 from .models import Account, Students
 from .serializers import AccountSerializer, StudentsAccountSerializer
-
-from rest_framework.test import APIClient, APIRequestFactory
 
 
 class AccountTest(TestCase):
@@ -23,7 +22,7 @@ class AccountTest(TestCase):
             email="test@test.com",
             password="Test123456",
         )
-        self.client.login(username="test", password="Test123456")
+        self.client.force_login(self.user)
         Account.objects.create(
             name="Company",
             email="Company@gmail.com",
@@ -61,6 +60,7 @@ class AccountTest(TestCase):
         self.assertEqual(response.status_code, 400)
 
 
+
 class StudentTest(TestCase):
     """ Test module for GET and POST on /account/create_student """
 
@@ -73,7 +73,7 @@ class StudentTest(TestCase):
             email="test@test.com",
             password="Test123456",
         )
-        self.client.login(username="test", password="Test123456")  # Force login
+        self.client.force_login(self.user)  # Force login
         self.account = Account.objects.create(
             name="Company",
             email="Company@gmail.com",
