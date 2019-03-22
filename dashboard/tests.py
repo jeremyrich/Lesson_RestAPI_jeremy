@@ -1,26 +1,21 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from django.test import Client, TestCase
-from django.urls import reverse
-from django.contrib.auth.models import User
-
 import json
 
+from django.contrib.auth.models import User
+from django.test import Client, TestCase
+from django.urls import reverse
 from rest_framework.test import APIClient
 
 from account.models import Account, Students
 from dashboard.models import Lesson, Status, Subscriptions
-from dashboard.serializers import (
-    StatusSerializer,
-    LessonEnrollSerializer,
-    LessonSerializer,
-    LockLessonSerializer,
-    LessonStudentSerializer,
-    SubscriptionsLessonSerializer,
-    SubscriptionsSerializer,
-    SubscriptionsStatusSerializer,
-)
+from dashboard.serializers import (LessonEnrollSerializer, LessonSerializer,
+                                   LessonStudentSerializer,
+                                   LockLessonSerializer, StatusSerializer,
+                                   SubscriptionsLessonSerializer,
+                                   SubscriptionsSerializer,
+                                   SubscriptionsStatusSerializer)
 
 
 class SubscriptionsTest(TestCase):
@@ -35,7 +30,7 @@ class SubscriptionsTest(TestCase):
             email="test@test.com",
             password="Test123456",
         )
-        self.client.login(username="test", password="Test123456")
+        self.client.force_login(self.user)
         self.account = Account.objects.create(
             name="Company",
             email="Company@gmail.com",
@@ -117,7 +112,7 @@ class StatusTest(TestCase):
             email="test@test.com",
             password="Test123456",
         )
-        self.client.login(username="test", password="Test123456")
+        self.client.force_login(self.user)
         self.status = Status.objects.create(name="Active")
 
     def test_get_status(self):
@@ -163,7 +158,7 @@ class LessonTest(TestCase):
             email="test2@gmail.com",
             account_id=self.account,
         )
-        self.client.login(username="test", password="Test123456")
+        self.client.force_login(self.user)
         self.lesson = Lesson.objects.create(
             date="2019-01-03", description="Django crash course"
         )
